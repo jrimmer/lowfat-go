@@ -1,0 +1,5 @@
+make[1]: Entering directory '/work/app/src'
+cc -c -o main.o main.c
+cc -c -o util.o util.c
+cc -o app main.o util.o
+make[1]: Leaving directory '/work/app/src'

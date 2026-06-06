@@ -1,0 +1,10 @@
+> app@1.0.0 test
+> jest
+
+PASS src/util.test.js
+FAIL src/api.test.js
+  ● api › returns 200
+    expected 200, received 500
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 5 passed, 6 total

@@ -14,9 +14,9 @@ import (
 
 // case_ is one row of testdata/cases.tsv.
 type case_ struct {
-	filter, samplePath, sub, level string
-	exit                           int
-	goldenPath                     string
+	command, samplePath, args, level string
+	exit                             int
+	goldenPath                       string
 }
 
 func loadCases(t testing.TB) []case_ {
@@ -43,9 +43,9 @@ func loadCases(t testing.TB) []case_ {
 			t.Fatalf("bad exit code in row %q: %v", line, err)
 		}
 		cases = append(cases, case_{
-			filter:     cols[0],
+			command:    cols[0],
 			samplePath: cols[1],
-			sub:        cols[2],
+			args:       cols[2],
 			level:      cols[3],
 			exit:       exit,
 			goldenPath: cols[5],
@@ -66,8 +66,6 @@ func TestGoldenParity(t *testing.T) {
 	cases := loadCases(t)
 	reg := lowfat.Default()
 
-	// Map a filter package name to the command it intercepts. cases.tsv keys by
-	// filter package; the registry keys by command. They coincide for builtins.
 	for _, c := range cases {
 		c := c
 		name := strings.TrimSuffix(filepath.Base(c.goldenPath), ".txt")
@@ -85,16 +83,16 @@ func TestGoldenParity(t *testing.T) {
 				t.Fatalf("read golden: %v", err)
 			}
 
-			// args[0] is the subcommand, mirroring lowfat's dispatch.
-			args := []string{c.sub}
-			res, err := reg.Filter(c.filter, args, string(input),
+			// args is the full arg list; the registry derives sub = args[0].
+			args := strings.Fields(c.args)
+			res, err := reg.Filter(c.command, args, string(input),
 				lowfat.Options{ExitCode: c.exit}.At(level))
 			if err != nil {
 				t.Fatalf("Filter error: %v", err)
 			}
 			if res.Output != string(want) {
-				t.Errorf("MISMATCH filter=%s sub=%s level=%s exit=%d\n%s",
-					c.filter, c.sub, c.level, c.exit, firstDiff(res.Output, string(want)))
+				t.Errorf("MISMATCH command=%s args=%q level=%s exit=%d\n%s",
+					c.command, c.args, c.level, c.exit, firstDiff(res.Output, string(want)))
 			}
 		})
 	}

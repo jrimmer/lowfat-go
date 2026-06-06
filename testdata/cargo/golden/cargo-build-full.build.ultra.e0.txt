@@ -1,0 +1,2 @@
+warning: unused variable: `cfg`
+warning: `app` (bin "app") generated 1 warning

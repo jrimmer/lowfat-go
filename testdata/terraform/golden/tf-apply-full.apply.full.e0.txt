@@ -1,0 +1,6 @@
+aws_instance.web: Creating...
+aws_instance.web: Still creating... [10s elapsed]
+aws_instance.web: Creation complete after 32s [id=i-0abc123]
+aws_s3_bucket.logs: Modifying... [id=logs-bucket]
+aws_s3_bucket.logs: Modifications complete after 1s
+Apply complete! Resources: 1 added, 1 changed, 0 destroyed.

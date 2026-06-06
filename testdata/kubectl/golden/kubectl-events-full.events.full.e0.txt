@@ -1,0 +1,6 @@
+LAST SEEN   TYPE      REASON      OBJECT             MESSAGE
+2m          Normal    Scheduled   pod/web-1          Successfully assigned web-1
+90s         Normal    Pulled      pod/web-1          Container image pulled
+60s         Warning   BackOff     pod/web-1          Back-off restarting container
+30s         Warning   Unhealthy   pod/web-1          Liveness probe failed
+10s         Normal    Created     pod/web-1          Created container web

@@ -1,0 +1,3 @@
+cc -c -o main.o main.c
+cc -c -o util.o util.c
+cc -o app main.o util.o

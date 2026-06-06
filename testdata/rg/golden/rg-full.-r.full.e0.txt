@@ -1,0 +1,10 @@
+internal/server/handler.go:12:func NewServer() *Server {
+internal/server/handler.go:45:	server := NewServer()
+internal/server/router.go:8:	srv := NewServer()
+internal/db/pool.go:33:	// server pool
+cmd/main.go:5:	s := server.NewServer()
+cmd/main.go:9:	s.Run()
+internal/server/handler_test.go:14:	srv := NewServer()
+internal/server/handler_test.go:20:	srv := NewServer()
+internal/api/v1.go:3:	server := NewServer()
+internal/api/v2.go:3:	server := NewServer()

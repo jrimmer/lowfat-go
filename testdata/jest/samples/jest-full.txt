@@ -1,0 +1,15 @@
+ PASS  src/util.test.ts
+  utility
+    ✓ adds numbers (2 ms)
+    ✓ trims strings (1 ms)
+ FAIL  src/api.test.ts
+  api
+    ✓ connects (3 ms)
+    ✗ returns 200 (5 ms)
+  ● api › returns 200
+    expected 200, received 500
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 3 passed, 4 total
+Snapshots:   0 total
+Time:        2.1 s

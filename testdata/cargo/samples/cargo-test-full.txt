@@ -1,0 +1,9 @@
+   Compiling app v0.1.0 (/work/app)
+     Running unittests src/lib.rs
+running 3 tests
+test calc::tests::adds ... ok
+test calc::tests::subtracts ... ok
+test calc::tests::divides ... FAILED
+failures:
+    calc::tests::divides
+test result: FAILED. 2 passed; 1 failed; 0 ignored

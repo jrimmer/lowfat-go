@@ -1,0 +1,3 @@
+Collecting nonexistent-pkg
+ERROR: Could not find a version that satisfies the requirement nonexistent-pkg
+ERROR: No matching distribution found for nonexistent-pkg

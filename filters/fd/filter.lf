@@ -1,0 +1,18 @@
+#!/usr/bin/env lowfat-filter
+# fd-compact — fd (modern find); path lists explode quickly. Mirrors find.
+# env: $sub $level $exit $args
+
+*:
+    if exit failed:
+        raw
+    else:
+        match level:
+            ultra:
+                head 20
+                or "fd: no matches"
+            lite:
+                head 200
+                or "fd: no matches"
+            else:
+                head 60
+                or "fd: no matches"

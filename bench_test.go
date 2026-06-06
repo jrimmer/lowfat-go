@@ -6,12 +6,21 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 	"testing"
 	"text/tabwriter"
 
 	"github.com/jrimmer/lowfat-go"
 	_ "github.com/jrimmer/lowfat-go/filters/all"
 )
+
+// subOf returns args[0] (the subcommand) or "" — for display labels only.
+func subOf(argsStr string) string {
+	if f := strings.Fields(argsStr); len(f) > 0 {
+		return f[0]
+	}
+	return ""
+}
 
 // benchSink prevents the compiler from eliminating the filtered result.
 var benchSink lowfat.Result
@@ -41,16 +50,16 @@ func BenchmarkFilter(b *testing.B) {
 		if err != nil {
 			b.Fatal(err)
 		}
-		args := []string{c.sub}
+		args := strings.Fields(c.args)
 		opt := lowfat.Options{ExitCode: c.exit}.At(level)
-		name := fmt.Sprintf("%s/%s/%s", c.filter, c.sub, c.level)
+		name := fmt.Sprintf("%s/%s/%s", c.command, subOf(c.args), c.level)
 
 		b.Run(name, func(b *testing.B) {
 			var res lowfat.Result
 			b.ReportAllocs()
 			b.SetBytes(int64(len(input)))
 			for i := 0; i < b.N; i++ {
-				res, _ = reg.Filter(c.filter, args, string(input), opt)
+				res, _ = reg.Filter(c.command, args, string(input), opt)
 			}
 			benchSink = res
 			in, out := float64(res.InputTokens), float64(res.OutputTokens)
@@ -91,21 +100,21 @@ func TestTokenSavings(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		res, err := reg.Filter(c.filter, []string{c.sub}, string(input),
+		res, err := reg.Filter(c.command, strings.Fields(c.args), string(input),
 			lowfat.Options{ExitCode: c.exit}.At(level))
 		if err != nil {
 			t.Fatalf("filter: %v", err)
 		}
 		rows = append(rows, row{
-			name: fmt.Sprintf("%s %s (%s, exit %d)", c.filter, c.sub, c.level, c.exit),
+			name: fmt.Sprintf("%s %s (%s, exit %d)", c.command, subOf(c.args), c.level, c.exit),
 			in:   res.InputTokens,
 			out:  res.OutputTokens,
 		})
 		// Aggregate only level=full content samples to avoid triple-counting the
 		// same input across ultra/lite/full, and skip zero-token fixtures.
 		if c.level == "full" && res.InputTokens > 0 {
-			perFilterIn[c.filter] += res.InputTokens
-			perFilterOut[c.filter] += res.OutputTokens
+			perFilterIn[c.command] += res.InputTokens
+			perFilterOut[c.command] += res.OutputTokens
 			totIn += res.InputTokens
 			totOut += res.OutputTokens
 		}

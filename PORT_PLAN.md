@@ -58,7 +58,7 @@ github.com/jrimmer/lowfat-go                 (module path — change to taste)
 │   ├── tree/  (filter.lf + tree.go)             ← pure-DSL
 │   ├── grep/  (filter.lf + grep.go)             ← pure-DSL
 │   ├── find/  (filter.lf + find.go)             ← pure-DSL
-│   └── all/   (all.go: blank-imports the six → registers them)
+│   └── all/   (all.go: blank-imports every filter → registers them)
 ├── testdata/            cases.tsv + per-filter samples/ + golden/
 ├── golden_test.go       differential/golden harness over cases.tsv
 ├── example_test.go      runnable usage doc (scout-shaped)
@@ -129,7 +129,7 @@ command); `ctx.args = args` (so `if --stat`-style flag guards see the full arg l
    each golden by piping the sample through the **real Rust `lowfat filter`**. The Go
    `golden_test.go` reads the same TSV, runs the Go registry, and asserts byte-for-byte
    equality. Goldens are committed, so the test needs no cargo at run time.
-   Coverage: all 6 filters × {ultra,lite,full}, plus `exit!=0` cases for the
+   Coverage: all filters × {ultra,lite,full}, plus `exit!=0` cases for the
    `if exit failed` branches (grep/find/tree) and empty-output `or "…"` fallbacks.
 2. **Engine unit tests** (`lf/*_test.go`): parser constructs (define/macro, match, if/elif/else,
    split pre/post, inline vs indented), executor ops (keep/drop/head/tail/or/split, glob
@@ -144,7 +144,7 @@ command); `ctx.args = args` (so `if --stat`-style flag guards see the full arg l
 1. **Engine** — promote the spike's `lf` package; refactor `shell:` execution behind a
    `ShellRunner` interface carried on `ExecCtx`. Add engine unit tests. ✅ design proven
 2. **Framework** — `Manifest`, `Filter`, `Registry`, `Options/Result`, `tokens.go`.
-3. **Filters** — six packages; native `ShellRunner`s for git/docker/ls; pure-DSL for
+3. **Filters** — one package per tool (17 built in); native `ShellRunner`s for git/docker/ls/cargo/kubectl; pure-DSL for
    tree/grep/find; `filters/all` aggregator.
 4. **Harness** — `cases.tsv`, synthetic samples for uncovered subs/exit paths,
    `regen-golden.sh`, `golden_test.go`, `example_test.go`.

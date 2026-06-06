@@ -1,0 +1,7 @@
+   Compiling libc v0.2.150
+   Compiling proc-macro2 v1.0.70
+   Compiling app v0.1.0 (/work/app)
+warning: unused variable: `cfg`
+  --> src/main.rs:10:9
+warning: `app` (bin "app") generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 4.2s

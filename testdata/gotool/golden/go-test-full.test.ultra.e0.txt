@@ -1,0 +1,6 @@
+--- PASS: TestAlpha (0.00s)
+--- FAIL: TestBeta (0.01s)
+--- PASS: TestGamma (0.00s)
+FAIL
+FAIL	github.com/acme/app/internal/calc	0.123s
+ok  	github.com/acme/app/internal/util	0.004s

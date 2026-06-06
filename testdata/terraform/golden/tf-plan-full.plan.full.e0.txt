@@ -1,0 +1,9 @@
+  + create
+  ~ update in-place
+  - destroy
+Terraform will perform the following actions:
+  # aws_instance.web will be created
+  + resource "aws_instance" "web" {
+  # aws_s3_bucket.logs will be updated in-place
+  ~ resource "aws_s3_bucket" "logs" {
+Plan: 1 to add, 1 to change, 0 to destroy.

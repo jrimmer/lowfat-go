@@ -1,0 +1,3 @@
+   Compiling libc v0.2.150
+   Compiling app v0.1.0 (/work/app)
+    Finished dev [unoptimized + debuginfo] target(s) in 3.1s

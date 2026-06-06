@@ -1,0 +1,4 @@
+     Running unittests src/lib.rs
+test calc::tests::divides ... FAILED
+failures:
+test result: FAILED. 2 passed; 1 failed; 0 ignored

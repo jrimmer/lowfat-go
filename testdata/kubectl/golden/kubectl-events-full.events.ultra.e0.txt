@@ -1,0 +1,2 @@
+60s         Warning   BackOff     pod/web-1          Back-off restarting container
+30s         Warning   Unhealthy   pod/web-1          Liveness probe failed

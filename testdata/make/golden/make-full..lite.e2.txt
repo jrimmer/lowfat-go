@@ -1,0 +1,4 @@
+util.c:42:5: warning: unused variable 'tmp' [-Wunused-variable]
+net.c:88:9: error: implicit declaration of function 'connectx'
+make[1]: *** [Makefile:12: net.o] Error 1
+make: *** [Makefile:5: all] Error 2

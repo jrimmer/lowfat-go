@@ -1,0 +1,51 @@
+#!/usr/bin/env lowfat-filter
+# kubectl-compact — compact kubectl output for LLM contexts.
+# env: $sub $level $exit $args
+#
+# Upstream lowfat prunes `get -o yaml` server-side noise with a PyYAML script.
+# This pure-Go port replaces it with a native indent-based pruner (see
+# shell.go: the `kube-clean-yaml` op) so there is no python dependency.
+
+define clean-yaml:
+    shell: kube-clean-yaml
+
+# ── get ───────────────────────────────────────────────────────────
+# `-o yaml` -> prune server-side noise. Other explicit formats (`-o json`,
+# `name`, jsonpath) head to a downstream parser and must stay byte-exact -> raw.
+# No `-o` -> default table, which the pruner passes through unchanged.
+get:
+    if -o yaml:
+        clean-yaml
+        head 200
+    elif --output yaml:
+        clean-yaml
+        head 200
+    elif -o:
+        raw
+    elif --output:
+        raw
+    else:
+        clean-yaml
+        head 200
+
+# ── logs ──────────────────────────────────────────────────────────
+logs:
+    if level ultra:
+        keep /ERROR|FATAL|panic|Exception/
+        tail 30
+        or "no errors in window"
+    else:
+        drop /^\s*$/
+        tail 60
+
+# ── events ────────────────────────────────────────────────────────
+events:
+    if level ultra:
+        keep /Warning|Error/
+        tail 20
+    else:
+        tail 40
+
+# ── default ───────────────────────────────────────────────────────
+*:
+    head 30

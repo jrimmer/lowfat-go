@@ -1,0 +1,5 @@
+go: downloading github.com/spf13/cobra v1.8.0
+go: downloading github.com/spf13/pflag v1.0.5
+go: added github.com/spf13/cobra v1.8.0
+go: added github.com/spf13/pflag v1.0.5
+go: upgraded golang.org/x/sys v0.10.0 => v0.15.0

@@ -1,0 +1,8 @@
+Requirement already satisfied: click in /usr/lib/python3.11/site-packages (8.1.7)
+Requirement already satisfied: idna in /usr/lib/python3.11/site-packages (3.4)
+Requirement already satisfied: certifi in /usr/lib/python3.11/site-packages (2023.7)
+Requirement already satisfied: urllib3 in /usr/lib/python3.11/site-packages (2.0.7)
+Collecting requests
+  Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+Installing collected packages: requests
+Successfully installed requests-2.31.0

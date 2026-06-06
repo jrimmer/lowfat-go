@@ -1,75 +1,95 @@
 #!/usr/bin/env bash
 # Regenerate golden parity fixtures from the REAL Rust lowfat binary (the oracle).
+# Each filter's shipped .lf (filters/<dir>/filter.lf) is the source of truth — the
+# oracle runs that exact file, and golden_test.go asserts the Go engine matches.
 #
 # Produces:
-#   testdata/<filter>/golden/<sample>.<sub>.<level>.e<exit>.txt   (one per case)
-#   testdata/cases.tsv                                            (case index, read by golden_test.go)
+#   testdata/<dir>/golden/<sample>.<sub>.<level>.e<exit>.txt
+#   testdata/cases.tsv   (read by golden_test.go and bench_test.go)
 #
-# Requires: a built `lowfat` binary. Override its path with LOWFAT_BIN=...
-# Default looks for the sibling Rust checkout's release build.
+# cases.tsv columns (tab-separated):
+#   command  sampleRel  args  level  exit  goldenRel
+#     command   registry key (the invoked binary, e.g. "go")
+#     args      full arg list incl. subcommand; sub = args[0] (may be empty)
+#
+# Requires a built `lowfat`. Override with LOWFAT_BIN=...
 set -euo pipefail
-
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"; cd "$ROOT"
 
 LOWFAT_BIN="${LOWFAT_BIN:-../lowfat/target/release/lowfat}"
 if [[ ! -x "$LOWFAT_BIN" ]]; then
   echo "error: lowfat binary not found at $LOWFAT_BIN" >&2
-  echo "build it with: (cd ../lowfat && cargo build --release)  or set LOWFAT_BIN=..." >&2
+  echo "build it: (cd ../lowfat && cargo build --release)  or set LOWFAT_BIN=..." >&2
   exit 1
 fi
 
-EMB="../lowfat/crates/lowfat-plugin/embedded"
-CASES="testdata/cases.tsv"
-: > "$CASES"
+CASES="testdata/cases.tsv"; : > "$CASES"
 
-# emit <filter> <sampleFileBasename> <sub> <exit>
-# generates ultra/lite/full goldens and appends rows to cases.tsv
+# gen <dir> <sample> <args> <exit> [command]
+# command defaults to <dir>; generates ultra/lite/full goldens.
 gen() {
-  local filter="$1" sample="$2" sub="$3" exit_code="$4"
-  local lf="$EMB/$filter/$filter-compact/filter.lf"
-  local samplePath="testdata/$filter/samples/$sample"
+  local dir="$1" sample="$2" args="$3" exit_code="$4" cmd="${5:-$1}"
+  local lf="filters/$dir/filter.lf"
+  local samplePath="testdata/$dir/samples/$sample"
   local base="${sample%.txt}"
+  local sub="${args%% *}"   # first token (subcommand); "" when args is empty
+  [[ "$args" == "" ]] && sub=""
   for level in ultra lite full; do
-    local golden="testdata/$filter/golden/${base}.${sub}.${level}.e${exit_code}.txt"
-    "$LOWFAT_BIN" filter "$lf" --sub="$sub" --level="$level" --exit="$exit_code" \
+    local golden="testdata/$dir/golden/${base}.${sub}.${level}.e${exit_code}.txt"
+    "$LOWFAT_BIN" filter "$lf" --sub="$sub" --level="$level" --args="$args" --exit="$exit_code" \
       < "$samplePath" > "$golden" 2>/dev/null
-    # cols: filter  sampleRel  sub  level  exit  goldenRel  (paths relative to testdata/)
     printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
-      "$filter" "$filter/samples/$sample" "$sub" "$level" "$exit_code" \
-      "$filter/golden/${base}.${sub}.${level}.e${exit_code}.txt" >> "$CASES"
+      "$cmd" "$dir/samples/$sample" "$args" "$level" "$exit_code" \
+      "$dir/golden/${base}.${sub}.${level}.e${exit_code}.txt" >> "$CASES"
   done
 }
 
-# ── git ────────────────────────────────────────────────────────────
-gen git git-diff-full.txt    diff   0
-gen git git-log-full.txt     log    0
-gen git git-show-full.txt    show   0
-gen git git-status-full.txt  status 0
-gen git git-status-empty.txt status 0     # empty -> `or "git status: clean"`
+# ── original six ───────────────────────────────────────────────────
+gen git    git-diff-full.txt     "diff"    0
+gen git    git-log-full.txt      "log"     0
+gen git    git-show-full.txt     "show"    0
+gen git    git-status-full.txt   "status"  0
+gen git    git-status-empty.txt  "status"  0
+gen docker docker-ps-full.txt      "ps"      0
+gen docker docker-images-full.txt  "images"  0
+gen docker docker-logs-full.txt    "logs"    0
+gen docker docker-build-full.txt   "build"   0
+gen docker docker-pull-full.txt    "pull"    0
+gen docker docker-compose-full.txt "compose" 0
+gen ls   ls-output-full.txt   "-la" 0
+gen tree tree-output-full.txt "."   0
+gen tree tree-error.txt       "."   2
+gen grep grep-output-full.txt "-r"  0
+gen grep grep-empty.txt       "-r"  1
+gen grep grep-error.txt       "-r"  2
+gen find find-output-full.txt "."   0
+gen find find-empty.txt       "."   0
 
-# ── docker ─────────────────────────────────────────────────────────
-gen docker docker-ps-full.txt      ps      0
-gen docker docker-images-full.txt  images  0
-gen docker docker-logs-full.txt    logs    0
-gen docker docker-build-full.txt   build   0
-gen docker docker-pull-full.txt    pull    0
-gen docker docker-compose-full.txt compose 0
+# ── tier 1 ports ───────────────────────────────────────────────────
+gen gotool go-build-full.txt "build" 0 go
+gen gotool go-test-full.txt  "test"  0 go
+gen gotool go-mod-full.txt   "mod"   0 go
+gen npm npm-install-full.txt "install" 0
+gen npm npm-test-full.txt    "test"    0
+gen cargo cargo-build-full.txt  "build" 0
+gen cargo cargo-build-clean.txt "build" 0   # clean build -> native "cargo build: ok"
+gen cargo cargo-test-full.txt   "test"  0
+gen kubectl kubectl-logs-full.txt   "logs"   0
+gen kubectl kubectl-events-full.txt "events" 0
+gen kubectl kubectl-get-json.txt    "get pods -o json" 0   # raw path (no clean-yaml)
 
-# ── ls (pure '*') ──────────────────────────────────────────────────
-gen ls ls-output-full.txt -la 0
-
-# ── tree (pure '*'; exit-failed -> raw) ────────────────────────────
-gen tree tree-output-full.txt . 0
-gen tree tree-error.txt       . 2
-
-# ── grep (exit 1 = no match, 2 = error) ────────────────────────────
-gen grep grep-output-full.txt -r 0
-gen grep grep-empty.txt       -r 1        # no matches -> `or "grep: no matches"`
-gen grep grep-error.txt       -r 2        # error -> raw
-
-# ── find (exit-failed -> raw) ──────────────────────────────────────
-gen find find-output-full.txt . 0
-gen find find-empty.txt       . 0         # empty -> `or "find: no matches"`
+# ── tier 2 authored ────────────────────────────────────────────────
+gen pytest pytest-fail-full.txt "tests" 1
+gen pytest pytest-pass-full.txt "tests" 0
+gen jest jest-full.txt "" 1
+gen pip pip-install-full.txt "install requests"        0
+gen pip pip-install-fail.txt "install nonexistent-pkg" 1
+gen rg rg-full.txt  "-r NewServer" 0
+gen rg rg-empty.txt "-r zzz"       1
+gen fd fd-full.txt  ".go"          0
+gen make make-full.txt  "" 2
+gen make make-clean.txt "" 0
+gen terraform tf-plan-full.txt  "plan"  0
+gen terraform tf-apply-full.txt "apply" 0
 
 echo "wrote $(wc -l < "$CASES" | tr -d ' ') cases to $CASES"

@@ -1,0 +1,8 @@
+--- PASS: TestAlpha (0.00s)
+--- FAIL: TestBeta (0.01s)
+    beta_test.go:31: expected 3, got 4
+--- PASS: TestGamma (0.00s)
+FAIL
+exit status 1
+FAIL	github.com/acme/app/internal/calc	0.123s
+ok  	github.com/acme/app/internal/util	0.004s

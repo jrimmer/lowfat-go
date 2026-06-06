@@ -1,0 +1,2 @@
+2024-01-01T00:00:04Z ERROR failed to reach cache: timeout
+2024-01-01T00:00:07Z FATAL panic: nil pointer dereference

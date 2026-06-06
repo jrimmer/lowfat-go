@@ -1,0 +1,15 @@
+#!/usr/bin/env lowfat-filter
+# jest-compact — keep PASS/FAIL suites and the totals, drop per-assertion noise.
+# env: $sub $level $exit $args
+
+*:
+    match level:
+        ultra:
+            keep /^(PASS|FAIL|Tests:|Test Suites:|Snapshots:|●)/
+            head 15
+        lite:
+            drop /^\s*✓/
+            head 80
+        else:
+            drop /^\s*✓/
+            head 40

@@ -34,7 +34,7 @@ pure-Go `ShellRunner` that reimplements that tool's `awk`/`sed` transforms
 natively. Output is byte-for-byte identical to the Rust `lowfat filter` (see
 [testing](#testing)).
 
-| Filter | command | notes |
+| Filter | command(s) | notes |
 |---|---|---|
 | `filters/git` | `git` | status / diff / log / show; native `compact-diff`, `abbrev-hash` |
 | `filters/docker` | `docker` | ps / images / logs / build / pull / compose; native column extraction |
@@ -42,6 +42,17 @@ natively. Output is byte-for-byte identical to the Rust `lowfat filter` (see
 | `filters/tree` | `tree` | pure-DSL |
 | `filters/grep` | `grep` | pure-DSL |
 | `filters/find` | `find` | pure-DSL |
+| `filters/gotool` | `go` | build / test / vet / mod (pure-DSL; package `gotool` — `go` is reserved) |
+| `filters/npm` | `npm` | install / test / audit / run (pure-DSL) |
+| `filters/cargo` | `cargo` | build / test / check / clippy / run / add / update; native `ok` status line |
+| `filters/kubectl` | `kubectl` | get / logs / events; native indent-based YAML pruner (replaces upstream PyYAML) |
+| `filters/pytest` | `pytest` | keep failures + summary, drop progress dots (pure-DSL) |
+| `filters/jest` | `jest`, `vitest` | keep PASS/FAIL suites + totals (pure-DSL) |
+| `filters/pip` | `pip`, `pip3` | drop "Requirement already satisfied" spam (pure-DSL) |
+| `filters/rg` | `rg` | ripgrep; mirrors grep (pure-DSL) |
+| `filters/fd` | `fd` | modern find; mirrors find (pure-DSL) |
+| `filters/make` | `make` | keep warnings/errors, drop dir chatter (pure-DSL) |
+| `filters/terraform` | `terraform`, `tofu` | plan / apply summaries (pure-DSL) |
 
 ## Adding a new tool filter (compile-time, no dynamic linking)
 
@@ -86,10 +97,13 @@ To expose only a subset of filters, skip `filters/all` and register the
 go test ./...
 ```
 
-The flagship suite is **golden parity**: `testdata/cases.tsv` enumerates 57 cases
+The flagship suite is **golden parity**: `testdata/cases.tsv` enumerates 126 cases
 (every filter × {ultra,lite,full}, plus `exit!=0` and empty-output paths); each
-golden was produced by the **real Rust `lowfat`** binary, and `golden_test.go`
-asserts the Go output matches byte-for-byte. Regenerate after changing a filter:
+golden was produced by the **real Rust `lowfat`** binary running the shipped `.lf`,
+and `golden_test.go` asserts the Go output matches byte-for-byte. (The one path the
+oracle can't cover — kubectl `get -o yaml`, whose upstream pruner is PyYAML — is
+unit-tested directly in `filters/kubectl/shell_test.go`.) Regenerate after changing
+a filter:
 
 ```sh
 (cd ../lowfat && cargo build --release)   # build the oracle

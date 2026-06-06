@@ -1,0 +1,20 @@
+#!/usr/bin/env lowfat-filter
+# make-compact — keep warnings/errors, drop directory chatter and recipe echo.
+# env: $sub $level $exit $args
+
+*:
+    if exit failed:
+        keep /(?i)(error|warning|undefined reference|fatal|\*\*\* )/
+        head 60
+    else:
+        match level:
+            ultra:
+                keep /(?i)(error|warning)/
+                head 10
+                or "make: ok"
+            lite:
+                drop /^make\[[0-9]+\]: (Entering|Leaving) directory/
+                head 80
+            else:
+                drop /^make\[[0-9]+\]: (Entering|Leaving) directory/
+                head 40

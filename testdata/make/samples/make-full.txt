@@ -1,0 +1,9 @@
+make[1]: Entering directory '/work/app/src'
+cc -c -o main.o main.c
+cc -c -o util.o util.c
+util.c:42:5: warning: unused variable 'tmp' [-Wunused-variable]
+cc -c -o net.o net.c
+net.c:88:9: error: implicit declaration of function 'connectx'
+make[1]: *** [Makefile:12: net.o] Error 1
+make[1]: Leaving directory '/work/app/src'
+make: *** [Makefile:5: all] Error 2

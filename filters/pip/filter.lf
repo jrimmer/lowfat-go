@@ -1,0 +1,23 @@
+#!/usr/bin/env lowfat-filter
+# pip-compact — drop "Requirement already satisfied" spam; keep the result.
+# env: $sub $level $exit $args
+
+install:
+    if exit failed:
+        keep /^(ERROR|WARNING|Could not|No matching)/
+        head 40
+    else:
+        match level:
+            ultra:
+                keep /^Successfully installed/
+                head 5
+                or "pip install: ok"
+            lite:
+                drop /^Requirement already satisfied/
+                head 80
+            else:
+                drop /^Requirement already satisfied/
+                head 30
+
+*:
+    head 30

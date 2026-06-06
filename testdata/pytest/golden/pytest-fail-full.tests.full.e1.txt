@@ -1,0 +1,6 @@
+=================================== FAILURES ===================================
+_______________________________ test_divide ____________________________________
+E       ZeroDivisionError: division by zero
+=========================== short test summary info ============================
+FAILED tests/test_calc.py::test_divide - ZeroDivisionError: division by zero
+========================= 1 failed, 5 passed in 0.12s ==========================

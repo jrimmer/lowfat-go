@@ -55,3 +55,72 @@ find	find/samples/find-output-full.txt	.	full	0	find/golden/find-output-full...f
 find	find/samples/find-empty.txt	.	ultra	0	find/golden/find-empty...ultra.e0.txt
 find	find/samples/find-empty.txt	.	lite	0	find/golden/find-empty...lite.e0.txt
 find	find/samples/find-empty.txt	.	full	0	find/golden/find-empty...full.e0.txt
+go	gotool/samples/go-build-full.txt	build	ultra	0	gotool/golden/go-build-full.build.ultra.e0.txt
+go	gotool/samples/go-build-full.txt	build	lite	0	gotool/golden/go-build-full.build.lite.e0.txt
+go	gotool/samples/go-build-full.txt	build	full	0	gotool/golden/go-build-full.build.full.e0.txt
+go	gotool/samples/go-test-full.txt	test	ultra	0	gotool/golden/go-test-full.test.ultra.e0.txt
+go	gotool/samples/go-test-full.txt	test	lite	0	gotool/golden/go-test-full.test.lite.e0.txt
+go	gotool/samples/go-test-full.txt	test	full	0	gotool/golden/go-test-full.test.full.e0.txt
+go	gotool/samples/go-mod-full.txt	mod	ultra	0	gotool/golden/go-mod-full.mod.ultra.e0.txt
+go	gotool/samples/go-mod-full.txt	mod	lite	0	gotool/golden/go-mod-full.mod.lite.e0.txt
+go	gotool/samples/go-mod-full.txt	mod	full	0	gotool/golden/go-mod-full.mod.full.e0.txt
+npm	npm/samples/npm-install-full.txt	install	ultra	0	npm/golden/npm-install-full.install.ultra.e0.txt
+npm	npm/samples/npm-install-full.txt	install	lite	0	npm/golden/npm-install-full.install.lite.e0.txt
+npm	npm/samples/npm-install-full.txt	install	full	0	npm/golden/npm-install-full.install.full.e0.txt
+npm	npm/samples/npm-test-full.txt	test	ultra	0	npm/golden/npm-test-full.test.ultra.e0.txt
+npm	npm/samples/npm-test-full.txt	test	lite	0	npm/golden/npm-test-full.test.lite.e0.txt
+npm	npm/samples/npm-test-full.txt	test	full	0	npm/golden/npm-test-full.test.full.e0.txt
+cargo	cargo/samples/cargo-build-full.txt	build	ultra	0	cargo/golden/cargo-build-full.build.ultra.e0.txt
+cargo	cargo/samples/cargo-build-full.txt	build	lite	0	cargo/golden/cargo-build-full.build.lite.e0.txt
+cargo	cargo/samples/cargo-build-full.txt	build	full	0	cargo/golden/cargo-build-full.build.full.e0.txt
+cargo	cargo/samples/cargo-build-clean.txt	build	ultra	0	cargo/golden/cargo-build-clean.build.ultra.e0.txt
+cargo	cargo/samples/cargo-build-clean.txt	build	lite	0	cargo/golden/cargo-build-clean.build.lite.e0.txt
+cargo	cargo/samples/cargo-build-clean.txt	build	full	0	cargo/golden/cargo-build-clean.build.full.e0.txt
+cargo	cargo/samples/cargo-test-full.txt	test	ultra	0	cargo/golden/cargo-test-full.test.ultra.e0.txt
+cargo	cargo/samples/cargo-test-full.txt	test	lite	0	cargo/golden/cargo-test-full.test.lite.e0.txt
+cargo	cargo/samples/cargo-test-full.txt	test	full	0	cargo/golden/cargo-test-full.test.full.e0.txt
+kubectl	kubectl/samples/kubectl-logs-full.txt	logs	ultra	0	kubectl/golden/kubectl-logs-full.logs.ultra.e0.txt
+kubectl	kubectl/samples/kubectl-logs-full.txt	logs	lite	0	kubectl/golden/kubectl-logs-full.logs.lite.e0.txt
+kubectl	kubectl/samples/kubectl-logs-full.txt	logs	full	0	kubectl/golden/kubectl-logs-full.logs.full.e0.txt
+kubectl	kubectl/samples/kubectl-events-full.txt	events	ultra	0	kubectl/golden/kubectl-events-full.events.ultra.e0.txt
+kubectl	kubectl/samples/kubectl-events-full.txt	events	lite	0	kubectl/golden/kubectl-events-full.events.lite.e0.txt
+kubectl	kubectl/samples/kubectl-events-full.txt	events	full	0	kubectl/golden/kubectl-events-full.events.full.e0.txt
+kubectl	kubectl/samples/kubectl-get-json.txt	get pods -o json	ultra	0	kubectl/golden/kubectl-get-json.get.ultra.e0.txt
+kubectl	kubectl/samples/kubectl-get-json.txt	get pods -o json	lite	0	kubectl/golden/kubectl-get-json.get.lite.e0.txt
+kubectl	kubectl/samples/kubectl-get-json.txt	get pods -o json	full	0	kubectl/golden/kubectl-get-json.get.full.e0.txt
+pytest	pytest/samples/pytest-fail-full.txt	tests	ultra	1	pytest/golden/pytest-fail-full.tests.ultra.e1.txt
+pytest	pytest/samples/pytest-fail-full.txt	tests	lite	1	pytest/golden/pytest-fail-full.tests.lite.e1.txt
+pytest	pytest/samples/pytest-fail-full.txt	tests	full	1	pytest/golden/pytest-fail-full.tests.full.e1.txt
+pytest	pytest/samples/pytest-pass-full.txt	tests	ultra	0	pytest/golden/pytest-pass-full.tests.ultra.e0.txt
+pytest	pytest/samples/pytest-pass-full.txt	tests	lite	0	pytest/golden/pytest-pass-full.tests.lite.e0.txt
+pytest	pytest/samples/pytest-pass-full.txt	tests	full	0	pytest/golden/pytest-pass-full.tests.full.e0.txt
+jest	jest/samples/jest-full.txt		ultra	1	jest/golden/jest-full..ultra.e1.txt
+jest	jest/samples/jest-full.txt		lite	1	jest/golden/jest-full..lite.e1.txt
+jest	jest/samples/jest-full.txt		full	1	jest/golden/jest-full..full.e1.txt
+pip	pip/samples/pip-install-full.txt	install requests	ultra	0	pip/golden/pip-install-full.install.ultra.e0.txt
+pip	pip/samples/pip-install-full.txt	install requests	lite	0	pip/golden/pip-install-full.install.lite.e0.txt
+pip	pip/samples/pip-install-full.txt	install requests	full	0	pip/golden/pip-install-full.install.full.e0.txt
+pip	pip/samples/pip-install-fail.txt	install nonexistent-pkg	ultra	1	pip/golden/pip-install-fail.install.ultra.e1.txt
+pip	pip/samples/pip-install-fail.txt	install nonexistent-pkg	lite	1	pip/golden/pip-install-fail.install.lite.e1.txt
+pip	pip/samples/pip-install-fail.txt	install nonexistent-pkg	full	1	pip/golden/pip-install-fail.install.full.e1.txt
+rg	rg/samples/rg-full.txt	-r NewServer	ultra	0	rg/golden/rg-full.-r.ultra.e0.txt
+rg	rg/samples/rg-full.txt	-r NewServer	lite	0	rg/golden/rg-full.-r.lite.e0.txt
+rg	rg/samples/rg-full.txt	-r NewServer	full	0	rg/golden/rg-full.-r.full.e0.txt
+rg	rg/samples/rg-empty.txt	-r zzz	ultra	1	rg/golden/rg-empty.-r.ultra.e1.txt
+rg	rg/samples/rg-empty.txt	-r zzz	lite	1	rg/golden/rg-empty.-r.lite.e1.txt
+rg	rg/samples/rg-empty.txt	-r zzz	full	1	rg/golden/rg-empty.-r.full.e1.txt
+fd	fd/samples/fd-full.txt	.go	ultra	0	fd/golden/fd-full..go.ultra.e0.txt
+fd	fd/samples/fd-full.txt	.go	lite	0	fd/golden/fd-full..go.lite.e0.txt
+fd	fd/samples/fd-full.txt	.go	full	0	fd/golden/fd-full..go.full.e0.txt
+make	make/samples/make-full.txt		ultra	2	make/golden/make-full..ultra.e2.txt
+make	make/samples/make-full.txt		lite	2	make/golden/make-full..lite.e2.txt
+make	make/samples/make-full.txt		full	2	make/golden/make-full..full.e2.txt
+make	make/samples/make-clean.txt		ultra	0	make/golden/make-clean..ultra.e0.txt
+make	make/samples/make-clean.txt		lite	0	make/golden/make-clean..lite.e0.txt
+make	make/samples/make-clean.txt		full	0	make/golden/make-clean..full.e0.txt
+terraform	terraform/samples/tf-plan-full.txt	plan	ultra	0	terraform/golden/tf-plan-full.plan.ultra.e0.txt
+terraform	terraform/samples/tf-plan-full.txt	plan	lite	0	terraform/golden/tf-plan-full.plan.lite.e0.txt
+terraform	terraform/samples/tf-plan-full.txt	plan	full	0	terraform/golden/tf-plan-full.plan.full.e0.txt
+terraform	terraform/samples/tf-apply-full.txt	apply	ultra	0	terraform/golden/tf-apply-full.apply.ultra.e0.txt
+terraform	terraform/samples/tf-apply-full.txt	apply	lite	0	terraform/golden/tf-apply-full.apply.lite.e0.txt
+terraform	terraform/samples/tf-apply-full.txt	apply	full	0	terraform/golden/tf-apply-full.apply.full.e0.txt

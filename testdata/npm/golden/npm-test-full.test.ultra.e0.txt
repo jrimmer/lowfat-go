@@ -1,0 +1,4 @@
+PASS src/util.test.js
+FAIL src/api.test.js
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 5 passed, 6 total

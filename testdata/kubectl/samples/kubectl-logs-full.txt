@@ -1,0 +1,9 @@
+2024-01-01T00:00:01Z INFO  starting server
+2024-01-01T00:00:02Z INFO  connected to database
+2024-01-01T00:00:03Z INFO  handled GET /healthz
+2024-01-01T00:00:04Z ERROR failed to reach cache: timeout
+2024-01-01T00:00:05Z INFO  retrying cache connection
+2024-01-01T00:00:06Z INFO  handled GET /
+2024-01-01T00:00:07Z FATAL panic: nil pointer dereference
+2024-01-01T00:00:08Z INFO  worker tick
+2024-01-01T00:00:09Z INFO  worker tick

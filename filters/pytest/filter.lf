@@ -1,0 +1,20 @@
+#!/usr/bin/env lowfat-filter
+# pytest-compact — keep failures and the summary, drop the progress dots.
+# env: $sub $level $exit $args
+
+*:
+    if exit failed:
+        keep /^(FAILED|ERROR|E   |_{3,}|=.*(FAILURES|ERRORS|short test summary|passed|failed|error).*=|assert)/
+        head 80
+    else:
+        match level:
+            ultra:
+                keep /^=.*(passed|failed|error).*=$/
+                head 5
+                or "pytest: ok"
+            lite:
+                drop /^\.+$|^\S+\.py [.sFxX]+/
+                head 80
+            else:
+                keep /^(=.*=$|FAILED|ERROR|PASSED)/
+                head 30

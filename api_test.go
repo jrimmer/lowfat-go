@@ -115,7 +115,11 @@ func TestDuplicateRegistrationFails(t *testing.T) {
 }
 
 func TestAllExpectedCommandsRegistered(t *testing.T) {
-	want := []string{"git", "docker", "ls", "tree", "grep", "find"}
+	want := []string{
+		"git", "docker", "ls", "tree", "grep", "find", // original
+		"go", "npm", "cargo", "kubectl", // tier 1
+		"pytest", "jest", "vitest", "pip", "pip3", "rg", "fd", "make", "terraform", "tofu", // tier 2
+	}
 	for _, cmd := range want {
 		if _, ok := lowfat.Default().ForCommand(cmd); !ok {
 			t.Errorf("expected command %q to be registered by filters/all", cmd)

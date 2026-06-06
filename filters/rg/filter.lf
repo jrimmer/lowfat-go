@@ -1,0 +1,14 @@
+#!/usr/bin/env lowfat-filter
+# rg-compact — ripgrep; recursive matches explode quickly. Mirrors grep.
+# rg exit codes: 0 matches, 1 no matches, 2 error.
+# env: $sub $level $exit $args
+
+*:
+    if exit failed:
+        raw
+        or "rg: no matches"
+    else:
+        match level:
+            ultra: head 20
+            lite:  head 200
+            else:  head 60

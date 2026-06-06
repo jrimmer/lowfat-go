@@ -1,0 +1,33 @@
+#!/usr/bin/env lowfat-filter
+# terraform-compact — keep the plan/apply summary and changed resources,
+# drop unchanged-attribute noise and refresh chatter.
+# env: $sub $level $exit $args
+
+plan:
+    if exit failed:
+        keep /(?i)(error|warning)/
+        head 60
+    else:
+        match level:
+            ultra:
+                keep /^(Plan:|No changes|Error|  # .* will be)/
+                head 40
+                or "terraform plan: no changes"
+            lite:
+                drop /^\s*$/
+                head 120
+            else:
+                keep /^(Plan:|No changes|Error|Terraform will|  # .* will be|  [-+~]|-\/\+)/
+                head 60
+
+apply:
+    match level:
+        ultra:
+            keep /^(Apply complete|Destroy complete|Error|  # .* will be)/
+            head 20
+            or "terraform apply: ok"
+        else:
+            head 40
+
+*:
+    head 40

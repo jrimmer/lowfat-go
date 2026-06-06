@@ -1,0 +1,5 @@
+# github.com/acme/app/internal/server
+internal/server/handler.go:42:13: undefined: NewRouter
+internal/server/handler.go:88:2: cannot use cfg (variable of type *Config) as int value
+# github.com/acme/app/internal/db
+internal/db/pool.go:17:9: error: pool size must be positive
