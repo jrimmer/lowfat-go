@@ -11,8 +11,8 @@ and get back compacted text plus token counts.
 
 ```go
 import (
-    "go.rimmer.net/lowfat"
-    _ "go.rimmer.net/lowfat/filters/all" // register the built-in tool filters
+    "github.com/jrimmer/lowfat-go"
+    _ "github.com/jrimmer/lowfat-go/filters/all" // register the built-in tool filters
 )
 
 res, err := lowfat.Filter("git", []string{"diff"}, output,
@@ -55,7 +55,7 @@ there is no runtime loading. To add, say, `kubectl`:
 
    import (
        _ "embed"
-       "go.rimmer.net/lowfat"
+       "github.com/jrimmer/lowfat-go"
    )
 
    //go:embed filter.lf
@@ -74,7 +74,7 @@ there is no runtime loading. To add, say, `kubectl`:
 2. If the `.lf` uses `shell:` ops, implement `lf.ShellRunner` in a `shell.go`
    (reimplement the awk/sed in Go — see `filters/git/shell.go` for the pattern,
    `internal/awk` for helpers).
-3. Add `_ "go.rimmer.net/lowfat/filters/kubectl"` to `filters/all/all.go`.
+3. Add `_ "github.com/jrimmer/lowfat-go/filters/kubectl"` to `filters/all/all.go`.
 4. Recompile.
 
 To expose only a subset of filters, skip `filters/all` and register the
@@ -145,10 +145,14 @@ filters/<tool>/                       one package per tool type (pluggable)
 testdata/  scripts/regen-golden.sh    golden parity harness
 ```
 
-## Module path
+## Install
 
-The module is `go.rimmer.net/lowfat`. Change the `module` line in `go.mod` (and
-imports) to wherever you host it before consuming it from another repo.
+```sh
+go get github.com/jrimmer/lowfat-go
+```
+
+The import path is `github.com/jrimmer/lowfat-go` (package `lowfat`); built-in
+filters live under `github.com/jrimmer/lowfat-go/filters/...`.
 
 ## Credits & upstream
 

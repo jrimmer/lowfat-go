@@ -3,7 +3,7 @@ package docker
 import (
 	"testing"
 
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 func TestPsUltraColumnExtract(t *testing.T) {

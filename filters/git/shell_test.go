@@ -3,7 +3,7 @@ package git
 import (
 	"testing"
 
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 func TestAbbrevHash(t *testing.T) {

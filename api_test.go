@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"go.rimmer.net/lowfat"
-	_ "go.rimmer.net/lowfat/filters/all"
-	"go.rimmer.net/lowfat/filters/git"
+	"github.com/jrimmer/lowfat-go"
+	_ "github.com/jrimmer/lowfat-go/filters/all"
+	"github.com/jrimmer/lowfat-go/filters/git"
 )
 
 func TestUnknownCommandPassthrough(t *testing.T) {

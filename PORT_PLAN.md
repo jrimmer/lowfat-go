@@ -43,7 +43,7 @@ parity with the Rust reference). See "Spike result" at the bottom.
 ### Module layout
 
 ```
-go.rimmer.net/lowfat                 (module path — change to taste)
+github.com/jrimmer/lowfat-go                 (module path — change to taste)
 ├── lowfat.go            Registry, Filter, Options, Result, package-level Filter()
 ├── manifest.go          Manifest (name/commands/subcommands) + NewFilter builder
 ├── tokens.go            EstimateTokens (len+3)/4, lowfat's savings metric

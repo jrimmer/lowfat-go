@@ -3,7 +3,7 @@ package lowfat
 import (
 	"fmt"
 
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 // Manifest describes a tool filter — the Go equivalent of lowfat's lowfat.toml

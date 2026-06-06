@@ -6,8 +6,8 @@
 // Basic use:
 //
 //	import (
-//	    "go.rimmer.net/lowfat"
-//	    _ "go.rimmer.net/lowfat/filters/all" // register built-in filters
+//	    "github.com/jrimmer/lowfat-go"
+//	    _ "github.com/jrimmer/lowfat-go/filters/all" // register built-in filters
 //	)
 //
 //	res, err := lowfat.Filter("git", []string{"diff"}, output,
@@ -21,7 +21,7 @@ package lowfat
 import (
 	"fmt"
 
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 // Level re-exports lf.Level so callers need not import lf.
@@ -193,7 +193,7 @@ func Default() *Registry { return defaultRegistry }
 func MustRegister(f *ToolFilter) { defaultRegistry.MustRegister(f) }
 
 // Filter runs against the default registry. Import the filter packages you need
-// (or go.rimmer.net/lowfat/filters/all) so they self-register.
+// (or github.com/jrimmer/lowfat-go/filters/all) so they self-register.
 func Filter(command string, args []string, output string, opt Options) (Result, error) {
 	return defaultRegistry.Filter(command, args, output, opt)
 }

@@ -4,7 +4,7 @@ package find
 import (
 	_ "embed"
 
-	"go.rimmer.net/lowfat"
+	"github.com/jrimmer/lowfat-go"
 )
 
 //go:embed filter.lf

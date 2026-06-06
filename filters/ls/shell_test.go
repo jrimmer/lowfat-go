@@ -3,7 +3,7 @@ package ls
 import (
 	"testing"
 
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 func TestLastField(t *testing.T) {

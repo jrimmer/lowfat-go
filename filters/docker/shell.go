@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"go.rimmer.net/lowfat/internal/awk"
-	"go.rimmer.net/lowfat/lf"
+	"github.com/jrimmer/lowfat-go/internal/awk"
+	"github.com/jrimmer/lowfat-go/lf"
 )
 
 // shell implements lf.ShellRunner for the docker filter's shell: ops.

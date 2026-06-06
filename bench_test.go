@@ -9,8 +9,8 @@ import (
 	"testing"
 	"text/tabwriter"
 
-	"go.rimmer.net/lowfat"
-	_ "go.rimmer.net/lowfat/filters/all"
+	"github.com/jrimmer/lowfat-go"
+	_ "github.com/jrimmer/lowfat-go/filters/all"
 )
 
 // benchSink prevents the compiler from eliminating the filtered result.

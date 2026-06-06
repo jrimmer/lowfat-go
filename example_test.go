@@ -3,8 +3,8 @@ package lowfat_test
 import (
 	"fmt"
 
-	"go.rimmer.net/lowfat"
-	_ "go.rimmer.net/lowfat/filters/all" // register built-in filters
+	"github.com/jrimmer/lowfat-go"
+	_ "github.com/jrimmer/lowfat-go/filters/all" // register built-in filters
 )
 
 // Example shows the typical embedding: an agent/harness that has already run a
