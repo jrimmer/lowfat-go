@@ -20,6 +20,7 @@ package lowfat
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/jrimmer/lowfat-go/lf"
 )
@@ -79,7 +80,7 @@ type ToolFilter struct {
 }
 
 // Manifest returns a copy of the filter's manifest.
-func (f *ToolFilter) Manifest() Manifest { return f.manifest }
+func (f *ToolFilter) Manifest() Manifest { return cloneManifest(f.manifest) }
 
 // run executes the filter against output for the given derived sub/opts.
 func (f *ToolFilter) run(sub string, args []string, output string, opt Options) (string, error) {
@@ -113,7 +114,15 @@ func (r *Registry) Register(f *ToolFilter) error {
 	if len(f.manifest.Commands) == 0 {
 		return fmt.Errorf("lowfat: filter %q declares no commands", f.manifest.Name)
 	}
+	seen := make(map[string]struct{}, len(f.manifest.Commands))
 	for _, cmd := range f.manifest.Commands {
+		if cmd == "" {
+			return fmt.Errorf("lowfat: filter %q declares an empty command", f.manifest.Name)
+		}
+		if _, ok := seen[cmd]; ok {
+			return fmt.Errorf("lowfat: filter %q declares command %q more than once", f.manifest.Name, cmd)
+		}
+		seen[cmd] = struct{}{}
 		if existing, ok := r.byCommand[cmd]; ok {
 			return fmt.Errorf("lowfat: command %q already registered by %q", cmd, existing.manifest.Name)
 		}
@@ -137,12 +146,13 @@ func (r *Registry) ForCommand(command string) (*ToolFilter, bool) {
 	return f, ok
 }
 
-// Commands returns the sorted-insertion list of registered command names.
+// Commands returns registered command names in lexical order.
 func (r *Registry) Commands() []string {
 	out := make([]string, 0, len(r.byCommand))
 	for c := range r.byCommand {
 		out = append(out, c)
 	}
+	sort.Strings(out)
 	return out
 }
 

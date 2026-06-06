@@ -33,7 +33,7 @@ func NewFilter(m Manifest, lfSource string, shell lf.ShellRunner) (*ToolFilter, 
 	if err != nil {
 		return nil, fmt.Errorf("lowfat: parsing %q filter: %w", m.Name, err)
 	}
-	return &ToolFilter{manifest: m, ruleset: rs, shell: shell}, nil
+	return &ToolFilter{manifest: cloneManifest(m), ruleset: rs, shell: shell}, nil
 }
 
 // MustNewFilter is NewFilter that panics on error; intended for package init().
@@ -43,4 +43,17 @@ func MustNewFilter(m Manifest, lfSource string, shell lf.ShellRunner) *ToolFilte
 		panic(err)
 	}
 	return f
+}
+
+func cloneManifest(m Manifest) Manifest {
+	m.Commands = cloneStringSlice(m.Commands)
+	m.Subcommands = cloneStringSlice(m.Subcommands)
+	return m
+}
+
+func cloneStringSlice(in []string) []string {
+	if in == nil {
+		return nil
+	}
+	return append([]string(nil), in...)
 }
