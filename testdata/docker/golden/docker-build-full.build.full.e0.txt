@@ -1,0 +1,7 @@
+#1 [internal] load build definition from Dockerfile
+#2 sha256:abc123 transferring context
+#3 [1/4] FROM golang:1.21
+#5 [3/4] COPY . .
+#6 [4/4] RUN go build ./...
+Successfully built 0123456789ab
+Successfully tagged myapp:latest

@@ -1,0 +1,8 @@
+latest: Pulling from library/nginx
+a1b2c3d4: Pulling fs layer
+a1b2c3d4: Downloading
+a1b2c3d4: Verifying Checksum
+a1b2c3d4: Extracting
+a1b2c3d4: Pull complete
+Status: Downloaded newer image for nginx:latest
+Digest: sha256:deadbeef

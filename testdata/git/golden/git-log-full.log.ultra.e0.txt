@@ -1,0 +1,10 @@
+commit fd390d1b83d0
+    add go reference plugin
+    
+    Demonstrates binary runtime with JSON contract.
+    Filters go build, test, vet, and mod output by level.
+    Build with: go build -o filter main.go
+commit f0c73fc22f7e
+    add npm reference plugin in JavaScript
+    
+    Demonstrates JSON stdin/stdout plugin contract with node runtime.

@@ -1,0 +1,11 @@
+commit fd390d1b83d0
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:06:49 2026 +0700
+    add go reference plugin
+    
+    Demonstrates binary runtime with JSON contract.
+    Filters go build, test, vet, and mod output by level.
+    Build with: go build -o filter main.go
+diff --git README.md README.md
+diff --git plugins/go/go-compact/lowfat.toml plugins/go/go-compact/lowfat.toml
+diff --git plugins/go/go-compact/main.go plugins/go/go-compact/main.go

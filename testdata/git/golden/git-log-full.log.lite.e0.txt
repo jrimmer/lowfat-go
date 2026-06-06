@@ -1,0 +1,50 @@
+commit fd390d1b83d0
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:06:49 2026 +0700
+
+    add go reference plugin
+    
+    Demonstrates binary runtime with JSON contract.
+    Filters go build, test, vet, and mod output by level.
+    Build with: go build -o filter main.go
+
+commit f0c73fc22f7e
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:04:36 2026 +0700
+
+    add npm reference plugin in JavaScript
+    
+    Demonstrates JSON stdin/stdout plugin contract with node runtime.
+    Filters npm install, test, audit, and run output by level.
+
+commit 01dc144863a0
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:00:46 2026 +0700
+
+    add reference plugins for git, docker, and ls
+    
+    Shell-based implementations of every built-in filter, serving as
+    both working examples and documentation for plugin authors.
+
+commit ca7c85bec3e7
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 20:55:44 2026 +0700
+
+    add plugin scaffolding, shell/ruby/lua runtimes, remove lowfat-community
+    
+    - Add `lowfat plugin new` command to scaffold plugins with generated
+      filter code for shell, node, python, deno, ruby, and lua runtimes
+    - Add shell, ruby, lua as first-class runtime types
+    - Remove lowfat-community crate (community filters are now plugins)
+    - Add integration tests for all runtimes (shell, node, python, ruby, lua)
+    - Update README with plugin authoring workflow
+
+commit 05bf36c1353f
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 20:33:25 2026 +0700
+
+    rename runf → lowfat
+    
+    - Rename all crates: runf-{core,plugin,runner,community,cli} → lowfat-*
+    - Binary: runf → lowfat
+    - Config: .runf → .lowfat, runf.toml → lowfat.toml

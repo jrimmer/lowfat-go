@@ -1,0 +1,2 @@
+Status: Downloaded newer image for nginx:latest
+Digest: sha256:deadbeef

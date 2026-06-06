@@ -1,0 +1,5 @@
+NAME STATUS
+rag-pgvector-db-1 0.0.0.0:5432->5432/tcp,
+chiku-demo-control-plane days
+fugu-dev-control-plane 0.0.0.0:443->443/tcp,
+pgbouncer-lab-control-plane days

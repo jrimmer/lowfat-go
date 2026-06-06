@@ -1,0 +1,7 @@
+Pulling postgres ... done
+Creating network app_default
+Creating volume app_data
+Creating app_postgres_1 ... done
+Creating app_web_1 ... done
+Starting app_web_1 ... done
+Attaching to app_web_1

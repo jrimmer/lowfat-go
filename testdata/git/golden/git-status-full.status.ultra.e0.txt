@@ -1,0 +1,3 @@
+	modified:   crates/lowfat-cli/src/commands/plugin.rs
+	modified:   crates/lowfat-cli/src/main.rs
+	plugins/git/git-compact/samples/

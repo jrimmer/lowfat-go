@@ -1,0 +1,6 @@
+On branch main
+Changes not staged for commit:
+	modified:   crates/lowfat-cli/src/commands/plugin.rs
+	modified:   crates/lowfat-cli/src/main.rs
+Untracked files:
+	plugins/git/git-compact/samples/

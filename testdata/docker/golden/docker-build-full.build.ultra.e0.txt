@@ -1,0 +1,2 @@
+Successfully built 0123456789ab
+Successfully tagged myapp:latest

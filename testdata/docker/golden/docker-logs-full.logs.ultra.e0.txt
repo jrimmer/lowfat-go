@@ -1,0 +1,10 @@
+2024-01-01T00:00:01Z app starting up
+2024-01-01T00:00:02Z connected to db
+2024-01-01T00:00:03Z listening on :8080
+2024-01-01T00:00:04Z request GET /health 200
+2024-01-01T00:00:05Z request GET / 200
+2024-01-01T00:00:06Z request POST /api 201
+2024-01-01T00:00:07Z cache warmed
+2024-01-01T00:00:08Z worker tick
+2024-01-01T00:00:09Z worker tick
+2024-01-01T00:00:10Z request GET /metrics 200

@@ -1,0 +1,25 @@
+commit fd390d1b83d0
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:06:49 2026 +0700
+
+    add go reference plugin
+    
+    Demonstrates binary runtime with JSON contract.
+    Filters go build, test, vet, and mod output by level.
+    Build with: go build -o filter main.go
+
+commit f0c73fc22f7e
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:04:36 2026 +0700
+
+    add npm reference plugin in JavaScript
+    
+    Demonstrates JSON stdin/stdout plugin contract with node runtime.
+    Filters npm install, test, audit, and run output by level.
+
+commit 01dc144863a0
+Author: zdk <di.warachet@gmail.com>
+Date:   Fri Apr 10 21:00:46 2026 +0700
+
+    add reference plugins for git, docker, and ls
+    

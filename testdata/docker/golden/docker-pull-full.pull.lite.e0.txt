@@ -1,0 +1,3 @@
+latest: Pulling from library/nginx
+Status: Downloaded newer image for nginx:latest
+Digest: sha256:deadbeef
