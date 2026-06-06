@@ -192,6 +192,7 @@ filters live under `github.com/jrimmer/lowfat-go/filters/...`.
 This is a Go port of **lowfat** by **zdk**:
 
 - Original project & repository: <https://github.com/zdk/lowfat>
+- Upstream snapshot this port was derived from: [`48c30f0`](https://github.com/zdk/lowfat/commit/48c30f0) (`../lowfat` HEAD at port time)
 
 The `.lf` DSL, the bundled filter rulesets (`filters/*/filter.lf`), the test
 samples under `testdata/`, and the overall design are derived from that project.
