@@ -128,6 +128,8 @@ alongside throughput.
 Representative results on the bundled samples (`TestTokenSavings`), tokens estimated
 as `ceil(len/4)`:
 
+**Original filters**
+
 | case | in | out (ultra) | saved | out (full) | saved |
 |---|--:|--:|--:|--:|--:|
 | git diff | 2782 | 121 | **95.7%** | 1716 | 38.3% |
@@ -139,12 +141,29 @@ as `ceil(len/4)`:
 | find | 429 | 189 | **55.9%** | 429 | 0.0% |
 | tree | 322 | 214 | **33.5%** | 322 | 0.0% |
 
-`ultra` does the heavy lifting (≈85–95% on large outputs); `full` is conservative and
-leaves outputs smaller than its `head` window (tree/grep/find/docker-logs samples)
-untouched — filtering only pays off once output is large.
+**Tier 1 & 2 filters**
 
-Throughput is ~100–1400 MB/s depending on filter (e.g. `git diff/ultra` ≈ 7.8 µs/op,
-`docker logs` ≈ 0.35 µs/op on an M-series core). Numbers vary by machine; regenerate
+| case | in | out (ultra) | saved | out (full) | saved |
+|---|--:|--:|--:|--:|--:|
+| pip install | 121 | 10 | **91.7%** | 39 | 67.8% |
+| npm install | 100 | 13 | **87.0%** | 30 | 70.0% |
+| terraform plan | 137 | 32 | **76.6%** | 73 | 46.7% |
+| kubectl logs | 107 | 29 | **72.9%** | 107 | 0.0% |
+| jest | 88 | 26 | **70.5%** | 68 | 22.7% |
+| cargo build | 65 | 20 | **69.2%** | 41 | 36.9% |
+| pytest (failures) | 213 | 112 | **47.4%** | 112 | 47.4% |
+| go test | 83 | 45 | **45.8%** | 59 | 28.9% |
+| make (build) | 90 | 52 | **42.2%** | 52 | 42.2% |
+
+`ultra` does the heavy lifting (≈85–95% on large outputs); `full` is conservative and
+leaves outputs smaller than its `head` window untouched — filtering only pays off once
+output is large. `rg`/`fd`/`kubectl get` are head/passthrough-based and behave like
+`grep`/`find`: they compress large result sets at `ultra` but leave the small bundled
+samples unchanged (hence ~0% here).
+
+Throughput ranges from ~50 MB/s on small, regex-heavy inputs (e.g. `pytest/ultra`
+≈ 18 µs/op) up to ~1400 MB/s on large head/keep passes (`git diff/ultra` ≈ 7.8 µs/op;
+`docker logs` ≈ 0.35 µs/op) on an M-series core. Numbers vary by machine; regenerate
 with `go test -bench BenchmarkFilter -benchmem`.
 
 ## Layout
